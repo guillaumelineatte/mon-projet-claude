@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { usePersistedCounter } from '../hooks/use-persisted-counter';
 
 export type CounterProps = {
   /** Valeur initiale du compteur (défaut : 0) */
@@ -9,10 +10,15 @@ export type CounterProps = {
   min?: number;
   /** Valeur maximale autorisée */
   max?: number;
+  /** Clé localStorage pour persister la valeur entre les rechargements */
+  storageKey?: string;
 };
 
-export function Counter({ initialValue = 0, step = 1, min, max }: CounterProps) {
-  const [count, setCount] = useState(initialValue);
+export function Counter({ initialValue = 0, step = 1, min, max, storageKey }: CounterProps) {
+  const persisted = usePersistedCounter(storageKey ?? '', initialValue);
+  const local = useState(initialValue);
+
+  const [count, setCount] = storageKey ? persisted : local;
 
   const canDecrement = min === undefined || count - step >= min;
   const canIncrement = max === undefined || count + step <= max;
