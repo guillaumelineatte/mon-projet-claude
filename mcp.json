@@ -1,7 +1,11 @@
 {
-  "github": {
-    "token": "${GITHUB_TOKEN}",
-    "org": "guillaumelineatte",
-    "repo": "mon-projet-claude"
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+      }
+    }
   }
 }
