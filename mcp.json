@@ -1,0 +1,7 @@
+{
+  "github": {
+    "token": "${GITHUB_TOKEN}",
+    "org": "guillaumelineatte",
+    "repo": "mon-projet-claude"
+  }
+}
