@@ -1,0 +1,16 @@
+name: Claude Code Auto
+on:
+  issues:
+    types: [opened, labeled]
+jobs:
+  claude:
+    if: github.event.label.name == 'claude'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Claude Code Agent
+      uses: anthropics/claude-code-action@v1
+      with:
+        mcp-config: ./mcp.json
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-number: ${{ github.event.issue.number }}
