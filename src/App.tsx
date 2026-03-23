@@ -1,5 +1,6 @@
 import { Counter } from './components/counter';
 import { HelloWorld } from './components/HelloWorld';
+import { ContactForm } from './components/contact-form';
 
 export default function App() {
   return (
@@ -7,6 +8,7 @@ export default function App() {
       <div className="mx-auto max-w-xl space-y-6">
         <HelloWorld />
         <Counter min={0} max={20} step={1} storageKey="counter-main" />
+        <ContactForm />
       </div>
     </main>
   );
