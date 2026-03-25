@@ -1,32 +1,19 @@
 name: Claude Code Auto
 on:
   issues:
-    types: [opened, labeled]
+    types: [labeled]
 jobs:
   claude:
     if: github.event.label.name == 'claude'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
     steps:
     - uses: actions/checkout@v4
-    - name: Génère mcp.json avec le token
-      run: |
-        cat > /tmp/mcp.json << 'EOF'
-        {
-          "mcpServers": {
-            "github": {
-              "command": "npx",
-              "args": ["-y", "@modelcontextprotocol/server-github"],
-              "env": {
-                "GITHUB_TOKEN": "${{ secrets.GITHUB_TOKEN }}"
-              }
-            }
-          }
-        }
-        EOF
     - name: Claude Code Agent
       uses: anthropics/claude-code-action@v1
       with:
-        mcp-config: /tmp/mcp.json
         anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        issue-number: ${{ github.event.issue.number }}
